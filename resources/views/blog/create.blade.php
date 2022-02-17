@@ -21,21 +21,31 @@
                     <hr>
                     <br>
                     <!-- Create a Post Form -->
-                    <form action="" method="post">
+                    <form action="{{route('store')}}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <!-- Titel  -->
                         <label for="tiltle">Title : </label>
-                        <input type="text" name="title" id="title">
+                        <input type="text" name="title" id="title" value="{{old('title')}}">
+                        @error('title')
+                        <p style="color : red">{{$message}}</p>
+                        @enderror
                         <!-- Image -->
                         <br>
                         <br>
                         <label for="image">Image : </label>
                         <input type="file" name="image" id="image">
+                        @error('image')
+                        <p style="color : red">{{$message}}</p>
+                        @enderror
                         <!-- Body -->
                         <br>
                         <br>
                         <label for="body">Body :</label>
                         <br>
-                        <textarea name="body" id="body" cols="100" rows="10"></textarea>
+                        <textarea name="body" id="body" cols="100" rows="10" value="{{old('body')}}"></textarea>
+                        @error('body')
+                        <p style="color : red">{{$message}}</p>
+                        @enderror
                         <!-- Button -->
                         <br>
                         <hr>

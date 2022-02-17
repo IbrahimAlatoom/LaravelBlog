@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Str;
 class HomeController extends Controller
 {
     //
@@ -17,13 +21,40 @@ class HomeController extends Controller
         return view('blog.post');
     }
 
-    public function contact()
-    {
-        return view('blog.contact');
-    }
-
     public function create()
     {
         return view('blog.create');
+    }
+
+    public function store(Request $request) 
+    {   
+        // Need Error Directive inside Form if request not passed the validations @error @enderror
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required | image',
+            'body' => 'required'
+        ]);
+        // File Upload
+        $imagePath = 'storage/'.$request->file('image')->store('postsImages','public');
+        // then do php artisan storage:link to get a copy in public file
+        // dd($request->all());
+        $userId = Auth::user()->id;
+        $fileds = [
+            'title' => $request->input('title'),
+            'slug' => Str::slug($request->input('title'),'-'),
+            'user_id' => $userId,
+            'image' => $imagePath,
+            'body' => $request->input('body'),
+        ];
+
+        Post::create($fileds);
+
+        return redirect()->back();
+    }
+
+
+    public function contact()
+    {
+        return view('blog.contact');
     }
 }

@@ -16,7 +16,10 @@ use App\Http\Controllers\HomeController;
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/post/{id}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
+
+// Post Routes
 Route::get('/create-post',[HomeController::class,'create'])->name('create');
+Route::post('/create-post',[HomeController::class,'store'])->name('store');
 
 Route::get('/about',function(){
     return view('blog.about');
