@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 
+@section('editorHead')
+<!-- CKEditor CDN https://cdn.ckeditor.com/ -->
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+@endsection
+
 @section('content')
 <x-app-layout>
     <x-slot name="header">
@@ -41,4 +46,7 @@
         </div>
     </div>
 </x-app-layout>
+@endsection
+@section('editorBody')
+<script>CKEDITOR.replace( 'body' );</script>
 @endsection
