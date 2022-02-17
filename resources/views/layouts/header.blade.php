@@ -25,6 +25,18 @@
                     <i class="far fa-comments"></i>
                     Contact Us
                 </a></li>
+
+                @guest
+                <li class="tm-nav-item {{Request::routeIs('login') ? 'active' : ''}}"><a href="{{route('login')}}" class="tm-nav-link">
+                    <i class="far fa-comments"></i>
+                    Login
+                </a></li>
+                <li class="tm-nav-item {{Request::routeIs('register') ? 'active' : ''}}"><a href="{{route('register')}}" class="tm-nav-link">
+                    <i class="far fa-comments"></i>
+                    Register
+                </a></li>
+                @endguest
+                
             </ul>
         </nav>
         <div class="tm-mb-65">
