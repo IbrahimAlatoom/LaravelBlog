@@ -9,7 +9,7 @@ class HomeController extends Controller
     //
     public function index()
     {
-        return view('blog.welcome');
+        return view('welcome');
     }
 
     public function show($id)

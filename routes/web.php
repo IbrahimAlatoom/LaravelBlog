@@ -12,7 +12,6 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/post/{id}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
@@ -21,3 +20,9 @@ Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 Route::get('/about',function(){
     return view('blog.about');
 })->name('about');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
