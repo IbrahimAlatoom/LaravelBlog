@@ -36,7 +36,12 @@
                     Register
                 </a></li>
                 @endguest
-                
+                @auth 
+                <li class="tm-nav-item {{Request::routeIs('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}" class="tm-nav-link">
+                    <i class="far fa-comments"></i>
+                    dashboard
+                </a></li>
+                @endauth
             </ul>
         </nav>
         <div class="tm-mb-65">

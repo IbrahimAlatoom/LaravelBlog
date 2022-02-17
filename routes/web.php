@@ -12,10 +12,11 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/post/{id}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
-
+Route::get('/create-post',[HomeController::class,'create'])->name('create');
 
 Route::get('/about',function(){
     return view('blog.about');
