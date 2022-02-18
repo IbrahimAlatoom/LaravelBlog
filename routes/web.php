@@ -14,7 +14,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/post/{id}',[HomeController::class,'show'])->name('post');
+Route::get('/post/{id:slug}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
 // Post Routes

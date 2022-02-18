@@ -12,13 +12,15 @@ class HomeController extends Controller
 {
     //
     public function index()
-    {
-        return view('welcome');
+    {   
+        $posts = Post::all();
+        return view('welcome',['posts'=>$posts]);
     }
 
     public function show($id)
-    {
-        return view('blog.post');
+    {   
+        $post = Post::find($id);    
+        return view('blog.post',['post'=>$post]);
     }
 
     public function create()
@@ -49,7 +51,7 @@ class HomeController extends Controller
 
         Post::create($fileds);
 
-        return redirect()->back();
+        return redirect()->back()->with(['mssg' => 'Article Created Successfully']);
     }
 
 

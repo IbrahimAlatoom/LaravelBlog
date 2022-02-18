@@ -14,30 +14,34 @@
 </div>
  
 <div class="row tm-row">
+    @foreach($posts as $post)
     <article class="col-12 col-md-6 tm-post">
         <hr class="tm-hr-primary">
-        <a href="post.html" class="effect-lily tm-post-link tm-pt-60">
+        <a href="{{route('post',['id' => $post->id,'slug' => $post->slug])}}" class="effect-lily tm-post-link tm-pt-60">
             <div class="tm-post-link-inner">
-                <img src="{{asset('img/img-01.jpg')}}" alt="Image" class="img-fluid">                            
+                <img src="{{asset($post->image)}}" alt="Image" class="img-fluid">                            
             </div>
             <span class="position-absolute tm-new-badge">New</span>
-            <h2 class="tm-pt-30 tm-color-primary tm-post-title">Simple and useful HTML layout</h2>
+            <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{$post->title}}</h2>
         </a>                    
         <p class="tm-pt-30">
-            There is a clickable image with beautiful hover effect and active title link for each post item. 
-            Left side is a sticky menu bar. Right side is a blog content that will scroll up and down.
+                {!!$post->body!!}
         </p>
         <div class="d-flex justify-content-between tm-pt-45">
             <span class="tm-color-primary">Travel . Events</span>
-            <span class="tm-color-primary">June 24, 2020</span>
+            <span class="tm-color-primary">{{$post->created_at->diffForHumans()}}</span>
         </div>
         <hr>
         <div class="d-flex justify-content-between">
             <span>36 comments</span>
-            <span>by Admin Nat</span>
+            <span>by {{$post->user->name}}</span>
         </div>
     </article>
-    <article class="col-12 col-md-6 tm-post">
+    @endforeach
+
+    
+
+    <!-- <article class="col-12 col-md-6 tm-post">
         <hr class="tm-hr-primary">
         <a href="post.html" class="effect-lily tm-post-link tm-pt-60">
             <div class=" tm-post-link-inner">
@@ -148,7 +152,7 @@
             <span>96 comments</span>
             <span>by Admin Sam</span>
         </div>
-    </article>
+    </article> -->
 </div>
 <div class="row tm-row tm-mt-100 tm-mb-75">
     <div class="tm-prev-next-wrapper">

@@ -4,27 +4,17 @@
 <div class="row tm-row">
     <div class="col-12">
         <hr class="tm-hr-primary tm-mb-55">
-        <!-- Video player 1422x800 -->
-        <video width="954" height="535" controls class="tm-mb-40">
-            <source src="{{asset('video/wheat-field.mp4')}}" type="video/mp4">							  
-            Your browser does not support the video tag.
-        </video>
+        <img src="{{asset($post->image)}}" alt="Image" class="img-fluid">
     </div>
 </div>
 <div class="row tm-row">
     <div class="col-lg-8 tm-post-col">
         <div class="tm-post-full">                    
             <div class="mb-4">
-                <h2 class="pt-2 tm-color-primary tm-post-title">Single Post of Xtra Blog HTML Template</h2>
-                <p class="tm-mb-40">June 16, 2020 posted by Admin Nat</p>
+                <h2 class="pt-2 tm-color-primary tm-post-title">{{$post->title}}</h2>
+                <p class="tm-mb-40">{{$post->created_at->diffForHumans()}} posted by {{$post->user->name}}</p>
                 <p>
-                    This is a description of the video post. You can also have an image instead of
-                    the video. You can free download 
-                    <a rel="nofollow" href="https://templatemo.com/tm-553-xtra-blog" target="_blank">Xtra Blog Template</a> 
-                    from TemplateMo website. Phasellus maximus quis est sit amet maximus. Vestibulum vel rutrum
-                    lorem, ac sodales augue. Aliquam erat volutpat. Duis lectus orci, blandit in arcu
-                    est, elementum tincidunt lectus. Praesent vel justo tempor, varius lacus a,
-            pharetra lacus. </p>
+                    {!!$post->body!!} </p>
                 <p>
                     Duis pretium efficitur nunc. Mauris vehicula nibh nisi. Curabitur gravida neque
                     dignissim, aliquet nulla sed, condimentum nulla. Pellentesque id venenatis
