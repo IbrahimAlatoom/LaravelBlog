@@ -14,12 +14,18 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/post/{id:slug}',[HomeController::class,'show'])->name('post');
+Route::get('/post/{post:slug}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
 // Post Routes
-Route::get('/create-post',[HomeController::class,'create'])->name('create');
-Route::post('/create-post',[HomeController::class,'store'])->name('store');
+Route::get('/create-post',[HomeController::class,'create'])->name('create')->middleware('auth');
+Route::post('/create-post',[HomeController::class,'store'])->name('store')->middleware('auth');;
+Route::get('/edit-post/{post}',[HomeController::class,'edit'])->name('edit')->middleware('auth');
+Route::put('/edit-post/{post}',[HomeController::class,'update'])->name('update')->middleware('auth');
+Route::delete('/edit-post/{post}',[HomeController::class,'delete'])->name('delete')->middleware('auth');
+
+
+
 
 Route::get('/about',function(){
     return view('blog.about');

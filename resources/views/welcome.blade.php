@@ -12,12 +12,26 @@
                     </form>
                 </div>                
 </div>
- 
+@if(session('mssg'))
+    <p style="color:red">{{session('mssg')}}</p>
+@endif
 <div class="row tm-row">
     @foreach($posts as $post)
     <article class="col-12 col-md-6 tm-post">
+        @auth
+            @if (auth()->user()->id === $post->user->id)
+            <span>
+                <a href="{{route('edit',$post)}}">Edit</a>
+                <form action="{{route('delete',$post)}}" method="post">
+                    @method('delete')
+                    @csrf
+                    <input type="submit" value=" Delete">
+                </form>
+            </span>
+            @endif
+        @endauth
         <hr class="tm-hr-primary">
-        <a href="{{route('post',['id' => $post->id,'slug' => $post->slug])}}" class="effect-lily tm-post-link tm-pt-60">
+        <a href="{{route('post',$post)}}" class="effect-lily tm-post-link tm-pt-60">
             <div class="tm-post-link-inner">
                 <img src="{{asset($post->image)}}" alt="Image" class="img-fluid">                            
             </div>
@@ -38,7 +52,9 @@
         </div>
     </article>
     @endforeach
-
+    @if($posts->isEmpty())
+    <p>There Is No Posts</p>
+    @endif
     
 
     <!-- <article class="col-12 col-md-6 tm-post">
