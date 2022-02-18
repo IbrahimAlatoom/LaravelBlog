@@ -15,9 +15,17 @@ class HomeController extends Controller
     //     $this->middleware('auth')->except(['index']);
     // }
 
-    public function index()
+    public function index(Request $request)
     {   
-        $posts = Post::latest()->get();
+        //Handle search
+        if($request->search){
+            $posts = Post::where('title','like','%'.$request->search.'%')
+            ->orWhere('body','like','%'.$request->search.'%')->latest()->paginate(4);
+            // return $request->search;
+        }else{
+            $posts = Post::latest()->paginate(4);
+        }
+
         return view('welcome',['posts'=>$posts]);
     }
 
@@ -98,7 +106,7 @@ class HomeController extends Controller
         return redirect()->back()->with(['mssg' => 'Article Updated Successfully']);
     }
 
-    public function delete(Post $post)
+    public function destroy(Post $post)
     {
         $post->delete();
         return redirect()->back()->with(['mssg' => 'Article deleted Successfully']);

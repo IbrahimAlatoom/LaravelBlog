@@ -9,6 +9,8 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/templatemo-xtra-blog.css')}}" rel="stylesheet">
 
+    <!-- Tailwind CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.17/tailwind.min.css">
     @yield('editorHead')
 </head>
 <body>

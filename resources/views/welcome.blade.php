@@ -4,8 +4,8 @@
 <!-- Search form -->
 <div class="row tm-row">
                 <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
-                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
+                    <form  class="form-inline tm-mb-80 tm-search-form">                
+                        <input class="form-control tm-search-input" name="search" type="text" placeholder="Search..." aria-label="Search">
                         <button class="tm-search-button" type="submit">
                             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
                         </button>                                
@@ -22,7 +22,7 @@
             @if (auth()->user()->id === $post->user->id)
             <span>
                 <a href="{{route('edit',$post)}}">Edit</a>
-                <form action="{{route('delete',$post)}}" method="post">
+                <form action="{{route('destroy',$post)}}" method="post">
                     @method('delete')
                     @csrf
                     <input type="submit" value=" Delete">
@@ -169,13 +169,16 @@
             <span>by Admin Sam</span>
         </div>
     </article> -->
+
+    
 </div>
 <div class="row tm-row tm-mt-100 tm-mb-75">
     <div class="tm-prev-next-wrapper">
-        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
-        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
+        <!-- <a href="" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
+        <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a> -->
+        {{$posts->links()}}
     </div>
-    <div class="tm-paging-wrapper">
+    <!-- <div class="tm-paging-wrapper">
         <span class="d-inline-block mr-3">Page</span>
         <nav class="tm-paging-nav d-inline-block">
             <ul>
@@ -193,7 +196,7 @@
                 </li>
             </ul>
         </nav>
-    </div>                
+    </div>                 -->
 </div>    
 
 @endsection

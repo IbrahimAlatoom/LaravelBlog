@@ -13,7 +13,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/home',[HomeController::class,'index'])->name('home');
 Route::get('/post/{post:slug}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
@@ -22,7 +22,7 @@ Route::get('/create-post',[HomeController::class,'create'])->name('create')->mid
 Route::post('/create-post',[HomeController::class,'store'])->name('store')->middleware('auth');;
 Route::get('/edit-post/{post}',[HomeController::class,'edit'])->name('edit')->middleware('auth');
 Route::put('/edit-post/{post}',[HomeController::class,'update'])->name('update')->middleware('auth');
-Route::delete('/edit-post/{post}',[HomeController::class,'delete'])->name('delete')->middleware('auth');
+Route::delete('/edit-post/{post}',[HomeController::class,'destroy'])->name('destroy')->middleware('auth');
 
 
 
