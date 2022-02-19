@@ -18,7 +18,7 @@
                     <div>
                         <ul>
                             <li><a href="{{route('create')}}">Create Post</a></li>
-                            <li><a href="">Create Category</a></li>
+                            <li><a href="{{route('categories.create')}}">Create Category</a></li>
                             <li><a href="">Categories List</a></li>
                         </ul>
                     </div>

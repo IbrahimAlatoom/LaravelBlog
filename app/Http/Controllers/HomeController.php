@@ -32,14 +32,12 @@ class HomeController extends Controller
     // Using Route Model Binding
     public function show(Post $post)
     {       
-    
-
-        return view('blog.post',['post'=>$post]);
+        return view('blog.posts.post',['post'=>$post]);
     }
     
     public function create()
     {
-        return view('blog.create');
+        return view('blog.posts.create');
     }
 
     public function store(Request $request) 
@@ -74,7 +72,7 @@ class HomeController extends Controller
         if(auth()->user()->id !== $post->user->id){
             abort(403);
         }
-        return view('blog.edit',['post'=>$post]);
+        return view('blog.posts.edit',['post'=>$post]);
     }
 
     public function update(Request $request,Post $post)
@@ -114,6 +112,6 @@ class HomeController extends Controller
     }
     public function contact()
     {
-        return view('blog.contact');
+        return view('blog.posts.contact');
     }
 }

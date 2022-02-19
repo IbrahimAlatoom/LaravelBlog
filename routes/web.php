@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/post/{post:slug}',[HomeController::class,'show'])->name('post');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
@@ -24,8 +25,8 @@ Route::get('/edit-post/{post}',[HomeController::class,'edit'])->name('edit')->mi
 Route::put('/edit-post/{post}',[HomeController::class,'update'])->name('update')->middleware('auth');
 Route::delete('/edit-post/{post}',[HomeController::class,'destroy'])->name('destroy')->middleware('auth');
 
-
-
+// Category Routes
+Route::resource('/categories',CategoryController::class);
 
 Route::get('/about',function(){
     return view('blog.about');
