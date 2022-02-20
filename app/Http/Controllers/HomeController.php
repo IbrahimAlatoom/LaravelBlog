@@ -23,6 +23,10 @@ class HomeController extends Controller
             $posts = Post::where('title','like','%'.$request->search.'%')
             ->orWhere('body','like','%'.$request->search.'%')->latest()->paginate(4);
             // return $request->search;
+        }elseif($request->category){
+            $posts = Category::where('name',$request->category)
+            ->firstOrFail()->posts()->paginate(4)->withQueryString();
+            // return $request->search;
         }else{
             $posts = Post::latest()->paginate(4);
         }
@@ -35,7 +39,11 @@ class HomeController extends Controller
     {   
         // GET CATEEGORIES 
         $categories = Category::all();
-        return view('blog.posts.post',['post'=>$post,'categories'=>$categories]);
+        // Get REalted Posts
+        $relatedPosts = Category::where('id',$post->category_id)->firstOrFail()
+        ->posts()->where('id','!=',$post->id)->paginate(3);
+
+        return view('blog.posts.post',['post'=>$post,'categories'=>$categories,'relatedPosts'=>$relatedPosts]);
     }
     
     public function create()

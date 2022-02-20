@@ -93,18 +93,20 @@
                 <li><a href="#" class="tm-color-primary">Etiam auctor ac arcu</a></li>
                 <li><a href="#" class="tm-color-primary">Sed im justo diam</a></li> -->
                 @foreach($categories as $category)
-                <li><a href="#" class="tm-color-primary">{{$category->name}}</a></li>
+                <li><a href="{{route('home',['category'=>$category->name])}}" class="tm-color-primary">{{$category->name}}</a></li>
                 @endforeach
             </ul>
             <hr class="mb-3 tm-hr-primary">
             <h2 class="tm-mb-40 tm-post-title tm-color-primary">Related Posts</h2>
-            <a href="#" class="d-block tm-mb-40">
+            @foreach($relatedPosts as $relatedPost)
+            <a href="{{route('post',$relatedPost)}}" class="d-block tm-mb-40">
                 <figure>
-                    <img src="{{asset('img/img-02.jpg')}}" alt="Image" class="mb-3 img-fluid">
-                    <figcaption class="tm-color-primary">Duis mollis diam nec ex viverra scelerisque a sit</figcaption>
+                    <img src="{{asset($relatedPost->image)}}" alt="Image" class="mb-3 img-fluid">
+                    <figcaption class="tm-color-primary">{{$relatedPost->title}}</figcaption>
                 </figure>
             </a>
-            <a href="#" class="d-block tm-mb-40">
+            @endforeach
+            <!-- <a href="#" class="d-block tm-mb-40">
                 <figure>
                     <img src="{{asset('img/img-05.jpg')}}" alt="Image" class="mb-3 img-fluid">
                     <figcaption class="tm-color-primary">Integer quis lectus eget justo ullamcorper ullamcorper</figcaption>
@@ -115,7 +117,7 @@
                     <img src="{{asset('img/img-06.jpg')}}" alt="Image" class="mb-3 img-fluid">
                     <figcaption class="tm-color-primary">Nam lobortis nunc sed faucibus commodo</figcaption>
                 </figure>
-            </a>
+            </a> -->
         </div>                    
     </aside>
 </div>

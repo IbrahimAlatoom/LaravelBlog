@@ -24,6 +24,6 @@ class Post extends Model
 
     public function category()
     {
-        return $this->hasOne(category::class);
+        return $this->belongsTo(category::class);
     }
 }
