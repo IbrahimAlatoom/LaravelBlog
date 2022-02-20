@@ -39,8 +39,9 @@ class HomeController extends Controller
     }
     
     public function create()
-    {
-        return view('blog.posts.create');
+    {   
+        $categories = Category::all();
+        return view('blog.posts.create',['categories'=>$categories]);
     }
 
     public function store(Request $request) 
@@ -49,24 +50,37 @@ class HomeController extends Controller
         $request->validate([
             'title' => 'required',
             'image' => 'required | image',
-            'body' => 'required'
+            'body' => 'required',
+            'category_id' => 'required'
         ]);
         // File Upload
         $imagePath = 'storage/'.$request->file('image')->store('postsImages','public');
         // then do php artisan storage:link to get a copy in public file
         // dd($request->all());
         $userId = Auth::user()->id;
-        $postId = Post::latest()->take(1)->first()->id+1;
-        $fileds = [
-            'title' => $request->input('title'),
-            'slug' => Str::slug($request->input('title'),'-').'-'.$postId,
-            'user_id' => $userId,
-            'image' => $imagePath,
-            'body' => $request->input('body'),
-        ];
-
-        Post::create($fileds);
-
+        if(Post::latest()->first() !== null){
+            $postId = Post::latest()->take(1)->first()->id+1;
+        }else
+        {
+            $postId = 1;
+        }
+        // $fileds = [
+        //     'title' => $request->input('title'),
+        //     'slug' => Str::slug($request->input('title'),'-').'-'.$postId,
+        //     'user_id' => $userId,
+        //     'image' => $imagePath,
+        //     'category_id' => $request->input('category_id'),
+        //     'body' => $request->input('body'),
+        // ];
+        // Post::create($fileds);
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->category_id = $request->input('category_id');
+        $post->slug = Str::slug($request->input('title'),'-').'-'.$postId;
+        $post->user_id = $userId;
+        $post->body = $request->input('body');
+        $post->image = $imagePath;
+        $post->save();
         return redirect()->back()->with(['mssg' => 'Article Created Successfully']);
     }
 

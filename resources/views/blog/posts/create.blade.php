@@ -33,6 +33,19 @@
                         @error('title')
                         <p style="color : red">{{$message}}</p>
                         @enderror
+                        <!-- Drop down -->
+                        <br>
+                        <br>
+                        <label for="categories"><span>Choose a category:</span></label>
+                        <select name="category_id" id="categories">
+                            <option selected disabled>Select option </option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <p style="color: red">{{ $message }}</p>
+                        @enderror
                         <!-- Image -->
                         <br>
                         <br>
