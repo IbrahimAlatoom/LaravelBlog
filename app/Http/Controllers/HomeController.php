@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Str;
 class HomeController extends Controller
 {
@@ -31,8 +32,10 @@ class HomeController extends Controller
 
     // Using Route Model Binding
     public function show(Post $post)
-    {       
-        return view('blog.posts.post',['post'=>$post]);
+    {   
+        // GET CATEEGORIES 
+        $categories = Category::all();
+        return view('blog.posts.post',['post'=>$post,'categories'=>$categories]);
     }
     
     public function create()
