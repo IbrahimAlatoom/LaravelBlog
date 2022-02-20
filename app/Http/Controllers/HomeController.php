@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Support\Str;
 class HomeController extends Controller
 {
@@ -42,8 +43,10 @@ class HomeController extends Controller
         // Get REalted Posts
         $relatedPosts = Category::where('id',$post->category_id)->firstOrFail()
         ->posts()->where('id','!=',$post->id)->paginate(3);
-
-        return view('blog.posts.post',['post'=>$post,'categories'=>$categories,'relatedPosts'=>$relatedPosts]);
+        // Get Post Comment
+        $comments = Comment::where('post_id',$post->id)->firstOrFail()
+        ->paginate(3);
+        return view('blog.posts.post',['post'=>$post,'categories'=>$categories,'relatedPosts'=>$relatedPosts,'comments'=>$comments]);
     }
     
     public function create()
@@ -54,6 +57,7 @@ class HomeController extends Controller
 
     public function store(Request $request) 
     {   
+
         // Need Error Directive inside Form if request not passed the validations @error @enderror
         $request->validate([
             'title' => 'required',
@@ -138,5 +142,16 @@ class HomeController extends Controller
     public function contact()
     {
         return view('blog.posts.contact');
+    }
+
+    public function storeComment(Request $request){
+        $userId = Auth::user()->id;
+        $postId = $request->input('post_id');
+        $comment = new Comment();
+        $comment->body = $request->input('body');
+        $comment->user_id = $userId;
+        $comment->post_id = $postId;
+        $comment->save();
+        return redirect()->back();
     }
 }
